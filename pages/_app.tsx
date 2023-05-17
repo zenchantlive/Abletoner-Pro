@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
-import './styles/global.css';
-import './styles/button.css';
+import '../styles/global.css';
+import '../styles/button.css';
 type CustomSession = {
   id: string;
   email: string;
