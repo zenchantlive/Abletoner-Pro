@@ -1,3 +1,5 @@
+const path = require('path');
+
 /**
  * @type {import('next').NextConfig}
  */
@@ -22,7 +24,13 @@ module.exports = {
   httpAgentOptions: {
     keepAlive: true,
   },
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      // define your custom aliases here
+      '@components': path.resolve(__dirname, './components'),
+      'config-server': path.resolve(__dirname, './config-server'),
+    };
+    return config;
+  },
 };
-
-
-module.exports = nextConfig;

@@ -6,8 +6,8 @@ import {
   ReconnectInterval,
   // @ts-ignore
 } from "eventsource-parser";
-import server from "../../Abletoner-Pro/config-server";
-
+  import server from 'config-server';
+  
 export async function OpenAIStream(payload: object) {
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
