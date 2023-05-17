@@ -10,8 +10,8 @@ import client from "../config-client";
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import * as React from 'react';
-import styles from "../styles/globals.module.css";
-import buttonStyles from "../styles/button.module.css";
+import styles from "../styles/globals.css";
+import buttonStyles from "../styles/button.css";
 
 
 const spaceGrotesk = Space_Grotesk({
