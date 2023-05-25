@@ -1,0 +1,38 @@
+
+
+:root {
+  --appThemeColor: #0000ff; /* Bright Blue */
+  --app-theme-color: #0000ff; /* Bright Blue */
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+      background-color: rgb(169, 169, 169); /* Dark Grey */
+    }
+}
+.text-blue-600 {
+    color: var(--app-theme-color);
+  }
+
+.start-button {
+    background: var(--appThemeColor);
+    color: white;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition: opacity 0.3s ease;
+}
+  
+.start-button:hover {
+    opacity: 0.7;
+}
+  
+.start-button:disabled {
+    opacity: 0.5;
+}
+
+.app-name {
+    color: var(--app-theme-color);
+}
+

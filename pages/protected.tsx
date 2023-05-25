@@ -7,11 +7,9 @@ import BackgroundGradient from "../components/background-gradient";
 import Card from "../components/card";
 import { MouseEvent, useCallback, useRef, useState, useEffect } from "react";
 import client from "../config-client";
-import { useRouter } from 'next/router';
-import { useSession } from 'next-auth/react';
-import * as React from 'react';
-import styles from "../styles/globals.css";
-import buttonStyles from "../styles/button.css";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
+import * as React from "react";
 
 
 const spaceGrotesk = Space_Grotesk({
@@ -28,8 +26,8 @@ const Home: NextPage = () => {
   const [receiving, setReceiving] = useState(false);
 
   useEffect(() => {
-    if (status === 'authenticated' && !session) {
-      router.push('/login');
+    if (status === "authenticated" && !session) {
+      router.push("/login");
     }
   }, [router, session, status]);
 
@@ -85,16 +83,19 @@ const Home: NextPage = () => {
 
       <main className="flex w-full flex-1 flex-col items-center p-5 text-center">
         {client.appLogo ? (
-          <Image className="w-20 mt-20 h-20 rounded-2xl" src={client.appLogo} alt="App Logo" />        ) : undefined}
+          <Image
+            className="w-20 mt-20 h-20 rounded-2xl"
+            src={client.appLogo}
+            alt="App Logo"
+          />
+        ) : undefined}
         <h1
           className={classNames(
             "text-3xl sm:text-6xl font-bold",
             client.appLogo ? "mt-10" : "mt-48"
           )}
         >
-          <span className="text-blue-600">
-            {client.appName}
-          </span>
+          <span className="text-blue-600">{client.appName}</span>
         </h1>
 
         <p className="mt-3 max-w-lg opacity-70">{client.appSummary}</p>
@@ -111,8 +112,10 @@ const Home: NextPage = () => {
           />
         </Card>
         <button
+          // Add class names for styles
           className={classNames(
             styles.button,
+            buttonStyles.button,
             buttonStyles.buttonText,
             buttonStyles.buttonRounded,
             buttonStyles.buttonPadding,
@@ -140,9 +143,7 @@ const Home: NextPage = () => {
         </div>
       </main>
 
-      <footer className="flex h-24 w-full items-center justify-center">
-      
-      </footer>
+      <footer className="flex h-24 w-full items-center justify-center"></footer>
     </div>
   );
 };

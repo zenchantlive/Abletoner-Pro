@@ -1,7 +1,12 @@
-import NextAuth from "next-auth";
+import NextAuth, { User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "@/lib/prisma";
 import { compare } from "bcrypt";
+import { Session } from "next-auth";
+
+interface CustomSession extends Session {
+  userId: number;
+}
 
 export default NextAuth({
   providers: [
@@ -29,5 +34,15 @@ export default NextAuth({
       },
     }),
   ],
-  session: { strategy: "jwt" },
+  session: { 
+    strategy: "jwt",
+  },
+  callbacks: {
+    session: async (params) => {
+      const session = params.session as CustomSession;
+      const user = params.user as User & { id: number | string };
+      session.userId = Number(user.id);
+      return session;
+    },
+  },
 });

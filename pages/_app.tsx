@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import '../styles/globals.css';
 import '../styles/button.css';
+
 type CustomSession = {
   id: string;
   email: string;

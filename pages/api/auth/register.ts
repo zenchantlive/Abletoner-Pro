@@ -7,6 +7,14 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const { email, password } = req.body;
+  // Ensure email and password are provided
+  if (!email || !password) {
+    return res.status(400).send("Email or password not provided");
+  }
+  // Add a basic password validation
+  if (password.length < 8) {
+    return res.status(400).send("Password must be at least 8 characters long");
+  }
   const exists = await prisma.user.findUnique({
     where: {
       email,
