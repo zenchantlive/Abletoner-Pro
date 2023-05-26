@@ -1,4 +1,4 @@
-import { useEffect, FC } from 'react'; // add useEffect here
+import { useEffect, FC, useRef } from 'react'; // add useRef here
 import { useRouter } from 'next/router';
 import { SessionProvider, useSession } from 'next-auth/react';
 import type { Session } from 'next-auth'; // If you have a custom session type, import that instead
@@ -21,10 +21,14 @@ function MyApp({ Component, pageProps }: MyAppProps) {
   const loading = status === "loading";
   const router = useRouter();
 
+  // This ref will track whether we've already attempted a navigation
+  const navigationAttempted = useRef(false);
+
   // Redirect to login page if not authenticated and not loading
   useEffect(() => {
-    if (!loading && !session && router.pathname !== '/app/login/page') {
-      router.push('/app/login/page');
+    if (!loading && !session && router.pathname !== '/' && !navigationAttempted.current) {
+      navigationAttempted.current = true;
+      router.push('/');
     }
   }, [session, loading, router]);
 
