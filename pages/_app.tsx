@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps }: MyAppProps) {
 
   // Redirect to login page if not authenticated and not loading
   useEffect(() => {
-    if (!loading && !session) {
+    if (!loading && !session && router.pathname !== '/app/login/page') {
       router.push('/app/login/page');
     }
   }, [session, loading, router]);
