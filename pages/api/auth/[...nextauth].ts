@@ -3,7 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "@/lib/prisma";
 import { compare } from "bcrypt";
 import { Session } from "next-auth";
-
+import { CookiesOptions } from "next-auth";
 interface CustomSession extends Session {
   userId: number;
 }
@@ -45,4 +45,8 @@ export default NextAuth({
       return session;
     },
   },
+  // Use secure cookies (transmitted over HTTPS only) 
+  cookies: {
+    secure: process.env.NODE_ENV === 'production',
+  } as CookiesOptions,
 });

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Form from "@/components/form";
 import React from 'react';
+import { SessionProvider } from 'next-auth/react'
 
 export default function Login() {
   return (

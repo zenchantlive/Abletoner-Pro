@@ -1,37 +1,53 @@
-import React, { useEffect } from 'react';
-import type { AppProps } from 'next/app';
+import { useEffect, FC } from 'react'; // add useEffect here
 import { useRouter } from 'next/router';
-import { useSession } from 'next-auth/react';
-import '../styles/globals.css';
-import '../styles/button.css';
+import { SessionProvider, useSession } from 'next-auth/react';
+import type { Session } from 'next-auth'; // If you have a custom session type, import that instead
 
-type CustomSession = {
+// Define your session type
+interface CustomSession extends Session {
   id: string;
   email: string;
   name: string;
-  session: any;
-};
+}
 
+interface MyAppProps {
+  Component: FC;
+  pageProps: any;
+}
 
-function MyApp({ Component, pageProps }: AppProps) {
-  const session = useSession();
+function MyApp({ Component, pageProps }: MyAppProps) {
+  // useSession now returns an object
+  const { data: session, status } = useSession();
+  const loading = status === "loading";
   const router = useRouter();
 
+  // Redirect to login page if not authenticated and not loading
   useEffect(() => {
-    if (session) {
-      return; // Do nothing if the user is logged in
+    if (!loading && !session) {
+      router.push('/app/login/page');
     }
-    router.push('/app/login/page'); // Redirect to login if not authenticated
-  }, [session, router]); // Include session in the dependency array
+  }, [session, loading, router]);
 
+  // If the session is loading, show a loading message
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   // Render the component only when the user is logged in
   if (session) {
     return <Component {...pageProps} />;
   }
 
-  // Optional loading state
-  return <div>Loading...</div>;
+  // If not loading and not authenticated, this line will not be reached because of the useEffect redirect
+  return null;
 }
 
-export default MyApp;
+const App: FC<MyAppProps> = ({ Component, pageProps }) => {
+  return (
+    <SessionProvider session={pageProps.session}>
+      <MyApp Component={Component} pageProps={pageProps} />
+    </SessionProvider>
+  );
+}
+
+export default App;
